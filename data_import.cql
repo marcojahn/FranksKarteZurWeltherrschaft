@@ -23,18 +23,18 @@ LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/marcojahn/FranksKa
 fieldterminator ','
 
 MATCH (cluster:Cluster { name: csvLine.cluster }), (buzzword:Buzzword {name: csvLine.label})
-CREATE (cluster)-[:has_buzzword]->(buzzword)
+CREATE UNIQUE (cluster)-[:has_buzzword]->(buzzword)
 
 // link buzzwords depends_on buzzword
 LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/marcojahn/FranksKarteZurWeltherrschaft/master/edges_buzzword_depdends_on_buzzword.csv" AS csvLine
 fieldterminator ','
 
 MATCH (source:Buzzword { name: csvLine.source }), (target:Buzzword {name: csvLine.target})
-CREATE (source)-[:depends_on]->(target)
+CREATE UNIQUE (source)-[:depends_on]->(target)
 
 // link buzzwords improves goal
 LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/marcojahn/FranksKarteZurWeltherrschaft/master/edges_buzzword_improves_goal.csv" AS csvLine
 fieldterminator ','
 
 MATCH (source:Buzzword { name: csvLine.source }), (target:Goal {name: csvLine.target})
-CREATE (source)-[:improves]->(target)
+CREATE UNIQUE (source)-[:improves]->(target)
