@@ -22,3 +22,8 @@ MATCH
 WITH g, n, x
 OPTIONAL MATCH (x)-[:improves]->(xg:Goal)
 RETURN n, x, g, xg
+
+// relationsships between clusters
+MATCH
+	(c:Cluster)-[:has_buzzword]->(b:Buzzword)<-[:has_buzzword]-(xc:Cluster)
+RETURN c, b, xc
