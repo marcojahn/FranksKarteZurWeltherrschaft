@@ -33,7 +33,7 @@ MATCH (source:Buzzword { name: csvLine.source }), (target:Buzzword {name: csvLin
 CREATE (source)-[:depends_on]->(target)
 
 // link buzzwords improves goal
-LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/marcojahn/FranksKarteZurWeltherrschaft/master/edges_buzzword_depdends_on_buzzword.csv" AS csvLine
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/marcojahn/FranksKarteZurWeltherrschaft/master/edges_buzzword_improves_goal.csv" AS csvLine
 fieldterminator ','
 
 MATCH (source:Buzzword { name: csvLine.source }), (target:Goal {name: csvLine.target})
