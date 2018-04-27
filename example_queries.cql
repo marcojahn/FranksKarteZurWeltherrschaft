@@ -25,5 +25,6 @@ RETURN n, x, g, xg
 
 // relationsships between clusters
 MATCH
-	(c:Cluster)-[:has_buzzword]->(b:Buzzword)<-[:has_buzzword]-(xc:Cluster)
-RETURN c, b, xc
+	(c:Cluster)-[:has_buzzword]->(b:Buzzword)<-[:depends_on]-(xb:Buzzword)<-[:has_buzzword]-(xc:Cluster)
+WHERE c.name <> xc.name
+RETURN c, b, xb, xc
