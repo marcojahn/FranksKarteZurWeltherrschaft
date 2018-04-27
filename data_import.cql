@@ -25,6 +25,13 @@ fieldterminator ','
 MATCH (cluster:Cluster { name: csvLine.cluster }), (buzzword:Buzzword {name: csvLine.label})
 CREATE UNIQUE (cluster)-[:has_buzzword]->(buzzword)
 
+// link goal belongs_to goal
+LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/marcojahn/FranksKarteZurWeltherrschaft/master/edges_goal_belongs_to_goal.csv" AS csvLine
+fieldterminator ','
+
+MATCH (source:Goal { name: csvLine.source }), (target:Goal {name: csvLine.target})
+CREATE (source)-[:]->(target)
+
 // link buzzwords depends_on buzzword
 LOAD CSV WITH HEADERS FROM "https://raw.githubusercontent.com/marcojahn/FranksKarteZurWeltherrschaft/master/edges_buzzword_depdends_on_buzzword.csv" AS csvLine
 fieldterminator ','
